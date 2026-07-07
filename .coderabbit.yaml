@@ -6,6 +6,10 @@
 #  `inheritance: true`.)
 reviews:
   auto_review:
+    # Manual opt-out: add the `skip-coderabbit` label to any PR to skip its
+    # automatic review. All other PRs are still reviewed (auto-review stays on).
+    labels:
+      - "!skip-coderabbit"
     # Skip automatic reviews for bot-authored dependency/propagation PRs — these
     # are gated by CI and auto-merge and do not need CodeRabbit review:
     #   - dependabot[bot]:        Dependabot dependency bumps

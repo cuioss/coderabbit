@@ -16,6 +16,11 @@ by CI and auto-merge):
   App: parent-version bumps pushed to a project's `consumers` list, and `cuioss-organization`
   workflow-reference (SHA) bumps.
 
+It also provides a manual opt-out label:
+
+- Add the **`skip-coderabbit`** label to any pull request to skip its automatic review. All
+  other PRs are still reviewed.
+
 ## Precedence
 
 A repository-level `.coderabbit.yaml` **fully overrides** this central file (sources do not
