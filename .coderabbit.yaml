@@ -6,7 +6,11 @@
 #  `inheritance: true`.)
 reviews:
   auto_review:
-    # Skip automatic reviews for PRs opened by Dependabot — dependency bumps are
-    # gated by CI and the dependabot-auto-merge workflow and do not need review.
+    # Skip automatic reviews for bot-authored dependency/propagation PRs — these
+    # are gated by CI and auto-merge and do not need CodeRabbit review:
+    #   - dependabot[bot]:        Dependabot dependency bumps
+    #   - cuioss-release-bot[bot]: consumer-propagation PRs opened by the release
+    #     App (parent-version bumps from a consumer list, org-workflow SHA bumps)
     ignore_usernames:
       - "dependabot[bot]"
+      - "cuioss-release-bot[bot]"

@@ -8,8 +8,13 @@ applies it to every organization repository that does **not** define its own
 
 ## What it does
 
-- Skips automatic reviews for pull requests opened by **Dependabot** (`dependabot[bot]`).
-  Dependency bumps are already gated by CI and the `dependabot-auto-merge` workflow.
+Skips automatic reviews for bot-authored dependency/propagation PRs (they are already gated
+by CI and auto-merge):
+
+- **Dependabot** (`dependabot[bot]`) — dependency bumps.
+- **Release bot** (`cuioss-release-bot[bot]`) — consumer-propagation PRs opened by the release
+  App: parent-version bumps pushed to a project's `consumers` list, and `cuioss-organization`
+  workflow-reference (SHA) bumps.
 
 ## Precedence
 
