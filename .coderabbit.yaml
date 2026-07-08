@@ -4,7 +4,41 @@
 # Applies to every cuioss repository that does NOT have its own .coderabbit.yaml.
 # (A repository-level .coderabbit.yaml fully overrides this file unless it sets
 #  `inheritance: true`.)
+#
+# Rationale for every setting: docs/review-signal-vs-noise.md
 reviews:
+  # Balanced profile. It still surfaces nitpick comments, which we treat as
+  # signal (see the signal/noise doc). `quiet` would drop them; `assertive`
+  # would add more feedback (and more noise).
+  profile: chill
+
+  # --- Noise reduction (see doc §"Reduced via config") ---
+  sequence_diagrams: false        # auto UML rarely adds value for our changes
+  suggested_labels: false         # not part of our workflow
+  suggested_reviewers: false      # single-maintainer org
+  poem: false                     # (default) no poem
+  in_progress_fortune: false      # no "fortune" chatter while a review runs
+
+  # Keep the "Prompt for AI Agents" block: it is the machine-readable payload
+  # our automation (plan-marshall) ingests. (Default true; set explicitly.)
+  enable_prompt_for_ai_agents: true
+
+  # Drop the interactive "Finishing Touches" checkboxes (docstring / unit-test
+  # generators) — UI, not review findings.
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+
+  # Silence always-skipped pre-merge checks: no functions -> docstring coverage
+  # is N/A; no linked issues -> issue assessment is N/A.
+  pre_merge_checks:
+    docstrings:
+      mode: "off"
+    issue_assessment:
+      mode: "off"
+
   auto_review:
     # Manual opt-out: add the `skip-coderabbit` label to any PR to skip its
     # automatic review. All other PRs are still reviewed (auto-review stays on).

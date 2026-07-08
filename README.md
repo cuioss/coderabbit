@@ -21,6 +21,18 @@ It also provides a manual opt-out label:
 - Add the **`skip-coderabbit`** label to any pull request to skip its automatic review. All
   other PRs are still reviewed.
 
+It tunes the review output to cut low-value noise (sequence diagrams, poem/fortune, suggested
+labels/reviewers, the interactive finishing-touches checkboxes, and always-skipped pre-merge
+checks) while keeping the substance — findings, **nitpicks** (treated as signal), committable
+suggestions, and the machine-readable *Prompt for AI Agents* block.
+
+## Signal vs. noise
+
+See **[docs/review-signal-vs-noise.md](docs/review-signal-vs-noise.md)** for the full breakdown
+of which parts of a CodeRabbit review are signal vs. noise, what each config setting does, and
+what cannot be suppressed via config (and must be filtered downstream, e.g. in plan-marshall's
+PR-comment triage).
+
 ## Precedence
 
 A repository-level `.coderabbit.yaml` **fully overrides** this central file (sources do not
