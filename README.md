@@ -28,10 +28,10 @@ suggestions, and the machine-readable *Prompt for AI Agents* block.
 
 ## Signal vs. noise
 
-See **[docs/review-signal-vs-noise.md](docs/review-signal-vs-noise.md)** for the full breakdown
-of which parts of a CodeRabbit review are signal vs. noise, what each config setting does, and
-what cannot be suppressed via config (and must be filtered downstream, e.g. in plan-marshall's
-PR-comment triage).
+The full breakdown of which parts of a CodeRabbit review are signal vs. noise, what each config
+setting does, and what cannot be suppressed via config, lives in the org docs:
+**[cuioss-organization/docs/automatic-review/coderabbit.md](https://github.com/cuioss/cuioss-organization/blob/main/docs/automatic-review/coderabbit.md)**
+(alongside the Sourcery equivalent).
 
 ## Precedence
 

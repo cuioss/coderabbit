@@ -5,7 +5,7 @@
 # (A repository-level .coderabbit.yaml fully overrides this file unless it sets
 #  `inheritance: true`.)
 #
-# Rationale for every setting: docs/review-signal-vs-noise.md
+# Rationale for every setting: https://github.com/cuioss/cuioss-organization/blob/main/docs/automatic-review/coderabbit.md
 reviews:
   # Balanced profile. It still surfaces nitpick comments, which we treat as
   # signal (see the signal/noise doc). `quiet` would drop them; `assertive`
