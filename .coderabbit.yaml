@@ -40,10 +40,12 @@ reviews:
       mode: "off"
 
   auto_review:
-    # Manual opt-out: add the `skip-coderabbit` label to any PR to skip its
+    # Manual opt-out: add the `skip-bot-review` label to any PR to skip its
     # automatic review. All other PRs are still reviewed (auto-review stays on).
+    # (Shared bot-skip label; Sourcery/Gemini honoring is documented in the org
+    #  automatic-review docs — CodeRabbit is the only bot that honors it centrally.)
     labels:
-      - "!skip-coderabbit"
+      - "!skip-bot-review"
     # Skip automatic reviews for bot-authored dependency/propagation PRs — these
     # are gated by CI and auto-merge and do not need CodeRabbit review:
     #   - dependabot[bot]:        Dependabot dependency bumps

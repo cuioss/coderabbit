@@ -18,8 +18,9 @@ by CI and auto-merge):
 
 It also provides a manual opt-out label:
 
-- Add the **`skip-coderabbit`** label to any pull request to skip its automatic review. All
-  other PRs are still reviewed.
+- Add the **`skip-bot-review`** label to any pull request to skip its automatic review. All
+  other PRs are still reviewed. (This is the shared bot-skip label; CodeRabbit is the only
+  reviewer that honors it centrally — see the org automatic-review docs for Sourcery/Gemini.)
 
 It tunes the review output to cut low-value noise (sequence diagrams, poem/fortune, suggested
 labels/reviewers, the interactive finishing-touches checkboxes, and always-skipped pre-merge
