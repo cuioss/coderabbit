@@ -39,6 +39,42 @@ reviews:
     issue_assessment:
       mode: "off"
 
+  # --- Review instructions ---
+  #
+  # Targets one archetype the reviewer ensemble demonstrably misses: a change that reads
+  # as internally consistent because the claim it makes and the mechanism that would
+  # implement the claim live in different files, and only one of them is in the diff.
+  #
+  # Concrete case (API-Sheriff#123): the change documented two benchmark goals as
+  # "deliberately skipped", gave a reason for each, and dropped both from a new CI
+  # coverage list — while both remained unconditional executions in a `pom.xml` the
+  # change never touched. Read as a document it was coherent: twelve wired, two skipped,
+  # ten expected. Every automated reviewer returned a clean result. CodeRabbit is the
+  # only one of them with whole-repository context, so it is the only one that can close
+  # this; it had the access and no reason to use it.
+  #
+  # Scoped to every file on purpose. The claim can appear in a workflow, a document or a
+  # source comment, and the mechanism is wherever it happens to be — narrowing the glob
+  # would reintroduce the blind spot on whichever surface got left out.
+  path_instructions:
+    - path: "**/*"
+      instructions: >-
+        When a change states that something is skipped, disabled, guarded, validated,
+        enforced or removed, verify that the mechanism exists in the file that would have
+        to implement it — build file, CI configuration, or source — including files this
+        pull request does not modify. Report a stated behaviour whose mechanism is absent,
+        and name the file that would have to contain it. Prose, a code comment, or a
+        summary table is not a mechanism.
+
+        Treat a hardcoded list that must mirror a set defined elsewhere — build goals, enum
+        constants, registered handlers, dispatch tables — as a defect unless it is derived
+        from that source at build or run time. Name the authoritative definition and the
+        drift it permits.
+
+        Check a guard's predicate against the scenario the guard exists for. Report a
+        condition that cannot fire in that scenario, or that an earlier failure path
+        suppresses before it is reached.
+
   auto_review:
     # Manual opt-out: add the `skip-bot-review` label to any PR to skip its
     # automatic review. All other PRs are still reviewed (auto-review stays on).
