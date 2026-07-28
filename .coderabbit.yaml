@@ -102,12 +102,19 @@ reviews:
     # was never reviewed at all, on a 48-file diff.
     #
     # Intermediate heads are not what we need reviewed. plan-marshall requests a
-    # review of the FINAL tree explicitly, by posting this bot's registered
-    # trigger_comment (`@coderabbitai review`) when a loop-back advances HEAD past
-    # the reviewed commit — see automatic-review/standards/coderabbit.md and
-    # workflow-integration-github/scripts/github_re_review.py. Automatic
-    # incremental review duplicates that request at arbitrary intermediate points
-    # and spends the quota the explicit request needs.
+    # review of the near-final tree explicitly, by posting this bot's registered
+    # trigger_comment (`@coderabbitai review`) after branch-cleanup rebases and
+    # force-pushes the feature branch onto base — the `re_review_on_branch_cleanup`
+    # knob, default ON, and the last re-review trigger in the flow. See
+    # automatic-review/standards/coderabbit.md and
+    # workflow-integration-github/scripts/github_re_review.py.
+    #
+    # (The OTHER re-review trigger, `re_review_on_loopback`, is default-OFF and is
+    #  off in plan-marshall's own marshal.json — it is NOT what backs this change.
+    #  Do not cite it as the mechanism.)
+    #
+    # Automatic incremental review duplicates the branch-cleanup request at
+    # arbitrary intermediate points and spends the quota that request needs.
     #
     # `auto_pause_after_reviewed_commits` (default 5) does not bound this: #1027's
     # 12 reviews exceed it more than twice over, so reviewing resumes after a
