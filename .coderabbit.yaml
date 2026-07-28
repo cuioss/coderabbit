@@ -90,3 +90,26 @@ reviews:
     ignore_usernames:
       - "dependabot[bot]"
       - "cuioss-release-bot[bot]"
+
+    # Review once when the PR opens; do NOT re-review on every push.
+    #
+    # The review quota is per-developer and counts every review, incremental ones
+    # included. Measured on plan-marshall: PR #1027 consumed 12 reviews and #1038
+    # consumed 4, because a plan pushes many intermediate commits (task commits,
+    # triage fixes, quality-gate fixes) between opening the PR and its final tree.
+    # The quota was then exhausted on the PRs that came next — #1041 got
+    # "you've reached your PR review limit, so we couldn't start this review" and
+    # was never reviewed at all, on a 48-file diff.
+    #
+    # Intermediate heads are not what we need reviewed. plan-marshall requests a
+    # review of the FINAL tree explicitly, by posting this bot's registered
+    # trigger_comment (`@coderabbitai review`) when a loop-back advances HEAD past
+    # the reviewed commit — see automatic-review/standards/coderabbit.md and
+    # workflow-integration-github/scripts/github_re_review.py. Automatic
+    # incremental review duplicates that request at arbitrary intermediate points
+    # and spends the quota the explicit request needs.
+    #
+    # `auto_pause_after_reviewed_commits` (default 5) does not bound this: #1027's
+    # 12 reviews exceed it more than twice over, so reviewing resumes after a
+    # pause. Turning the incremental trigger off is the bound.
+    auto_incremental_review: false
