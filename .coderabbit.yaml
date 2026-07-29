@@ -137,7 +137,35 @@ reviews:
     # explicitly requested review is untouched. On this pull request the removed
     # round produced nothing that was acted on.
     #
-    # ⚠ One round is a sample, not a law. If a later pull request has an
-    # incremental round produce a finding that gets FIXED, that is evidence against
-    # this setting — record it rather than assuming this generalises.
-    auto_incremental_review: false
+    # ⛔ FALSIFIED ON THE NEXT PULL REQUEST. Do not enable this without reading on.
+    #
+    # The paragraph above invited exactly this test, and plan-marshall#1043 answered
+    # it the other way:
+    #
+    #   05:56:15  head_ref_force_pushed          (the branch-cleanup rebase)
+    #   06:06:12  automatic INCREMENTAL review   7 findings -> 4 FIXED, including a
+    #                                            real test-class-split defect
+    #   (no `@coderabbitai review` comment was posted anywhere on that pull request)
+    #
+    # So on #1043 the incremental round is the one that carried the value, and the
+    # explicit branch-cleanup trigger this setting depends on never fired at all.
+    #
+    # Worse, where that trigger HAS fired it arrived too late to matter: on #1042 it
+    # was requested at 04:47:51 and the review landed at 05:01:17, 77 seconds AFTER
+    # the merge at 05:00:00. Nothing makes a merge wait for a requested review.
+    #
+    # The rebase push is therefore doing the job the branch-cleanup trigger is
+    # supposed to do, and doing it BEFORE the merge instead of after. Turning
+    # incremental off today trades a mechanism that works for one that is late.
+    #
+    # Correct sequencing: make a requested review gate the merge FIRST, then remove
+    # the incremental trigger. Until then this stays false-in-name-only — the line
+    # below is commented out deliberately.
+    #
+    # (The quota problem is real and unsolved: #1041, #1043 and #1044 were all
+    #  refused, and #1044 merged with no CodeRabbit review. But the refusal is a
+    #  WINDOW, not a hard quota — #1043 recovered coverage simply by waiting for the
+    #  window to reset across the rebase. Waiting is a real recovery strategy here,
+    #  unlike Sourcery's weekly cap. That is the thread to pull, not this setting.)
+    #
+    # auto_incremental_review: false
