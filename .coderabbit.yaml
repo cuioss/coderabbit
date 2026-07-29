@@ -19,16 +19,29 @@ reviews:
   poem: false                     # (default) no poem
   in_progress_fortune: false      # no "fortune" chatter while a review runs
 
-  # Keep the "Prompt for AI Agents" block: it is the machine-readable payload
-  # our automation (plan-marshall) ingests. (Default true; set explicitly.)
-  enable_prompt_for_ai_agents: true
+  # Drop the "🤖 Prompt for AI Agents" block. It restates each finding as imperative
+  # instructions addressed to whatever agent reads the comment ("in file X, change Y").
+  # Nothing consumes it: plan-marshall's automatic-review standards strip it before
+  # reasoning and forbid executing it, so the only thing it adds is a prompt-injection
+  # surface in third-party text.
+  #
+  # The risk is not hypothetical and does not require an adversary. On
+  # plan-marshall#1038 the block carried three instructions which, if followed, would
+  # have reversed a settled design decision (TASK-6 1f439c) and introduced a
+  # doc-contract divergence. All three findings were declined on their merits and
+  # CodeRabbit then withdrew them. Content is untrusted because of its provenance, not
+  # its intent.
+  enable_prompt_for_ai_agents: false
 
-  # Drop the interactive "Finishing Touches" checkboxes (docstring / unit-test
-  # generators) — UI, not review findings.
+  # Drop the interactive "Finishing Touches" checkboxes. These are agentic actions that
+  # write code — not review findings — and this org's flow has plan-marshall decide what
+  # is applied. Autofix additionally renders a checkbox under every review comment.
   finishing_touches:
     docstrings:
       enabled: false
     unit_tests:
+      enabled: false
+    autofix:
       enabled: false
 
   # Silence always-skipped pre-merge checks: no functions -> docstring coverage
