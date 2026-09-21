@@ -7,6 +7,16 @@
 #
 # Rationale for every setting: https://github.com/cuioss/cuioss-organization/blob/main/docs/automatic-review/coderabbit.md
 reviews:
+  # .plan/ is plan-marshall's bot-authored orchestration ledger — machine-generated
+  # bookkeeping, never source this reviewer's charter judges. Excluding it here also
+  # excludes it from the sparse-checkout CodeRabbit clones for review, and when a PR's
+  # entire diff falls under .plan/**, CodeRabbit reports the review as skipped rather than
+  # publishing an empty one — matching the same full-skip behavior PR-Agent needs a
+  # dedicated workflow job for (see cuioss/cuioss-organization's reusable-pr-agent-review.yml
+  # `changes` job).
+  path_filters:
+    - "!.plan/**"
+
   # Balanced profile. It still surfaces nitpick comments, which we treat as
   # signal (see the signal/noise doc). `quiet` would drop them; `assertive`
   # would add more feedback (and more noise).
