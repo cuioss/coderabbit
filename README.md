@@ -15,6 +15,10 @@ by CI and auto-merge):
 - **Release bot** (`cuioss-release-bot[bot]`) — consumer-propagation PRs opened by the release
   App: parent-version bumps pushed to a project's `consumers` list, and `cuioss-organization`
   workflow-reference (SHA) bumps.
+- **Release bot of another organisation** (`plan-marshall-release-bot[bot]`) — the same
+  propagation PRs in a consumer that lives in the `plan-marshall` organisation, opened by that
+  organisation's own release App. The entry matters where a copy of this file serves that
+  organisation; in `cuioss` it never matches.
 
 It also provides a manual opt-out label:
 
