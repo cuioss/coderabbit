@@ -110,6 +110,11 @@ reviews:
     #   - dependabot[bot]:        Dependabot dependency bumps
     #   - cuioss-release-bot[bot]: consumer-propagation PRs opened by the release
     #     App (parent-version bumps from a consumer list, org-workflow SHA bumps)
+    #   - plan-marshall-release-bot[bot]: the same propagation PRs in a consumer of
+    #     the plan-marshall organisation, opened by that organisation's own release
+    #     App. Listed here so a copy of this file serving that organisation skips
+    #     them too; in cuioss the entry never matches.
     ignore_usernames:
       - "dependabot[bot]"
       - "cuioss-release-bot[bot]"
+      - "plan-marshall-release-bot[bot]"
